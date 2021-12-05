@@ -39,11 +39,12 @@ while True:
  
     while True: 
         data = client.recv(1024)
+        
         print("[*] Received '", data, "' from the client") 
         print("    Processing data") 
-        unpacked_data = struct.unpack_array(data)
-        
-        
+        unpacked_data = struct.unpack_string(data)
+        print(f"{unpacked_data}")
+        client.send(unpacked_data.encode()) 
         
         
 print("    End of server program.") 

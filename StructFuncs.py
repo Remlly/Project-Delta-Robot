@@ -9,6 +9,8 @@ pack and unpack functions for the delta robot
 
 
 import struct 
+import socket 
+
 echo = True
 
 
@@ -32,9 +34,48 @@ def unpack_array(data):
     
     if(echo):
         print(f"unpacked data  :     {data}")
-        print(f"bytecode       :     {data}")
+        print(f"bytecode       :     {byte_code}")
         print(f"unpacked Result:     {unpacked_data}")
         
     return unpacked_data
+    
+
+
+def pack_string(string):
+    "packs a variable lenght of a string"
+    
+    byte_code = '<%ds' %len(string)
+    packed_string = struct.pack(byte_code, string.encode('UTF-8'))
+    
+    if(echo):    
+        print(f"Calculated byte code: {byte_code}")
+        print(f"packed string         {packed_string}")
+        
+    return packed_string, byte_code
+
+
+def unpack_string(data):
+    "unpacks a variable lenght of a string"
+    
+    decoded_data = data.decode('UTF-8')
+    if(echo):    
+        print(f"unpacked string       {decoded_data}")
+        
+    return decoded_data
+
+
+
+def create_socket(serverAdress):
+    raise NotImplementedError()    
+
+def connect_socket(serverAdress):
+    raise NotImplementedError()
+    
+def send_packed(message):
+    raise NotImplementedError()    
+    
+def recieve():
+    raise NotImplementedError()    
+   
     
     

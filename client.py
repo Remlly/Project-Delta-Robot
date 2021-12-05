@@ -16,10 +16,9 @@ hostIp = '192.168.178.30'              # Use ip address from the server
 hostPort = 2001                        # Use pc port from the server 
 serverAddress = (hostIp, hostPort)     # create (tuple) 
 
-array = np.array([5,4,3,2,1,6,9,20])
-array = array.astype(int)
 
-data8bit = struct.pack_array(array)
+string = "hello world!"
+packed_data = struct.pack_string(string)
 
 while True:                            # Repeat until message == quit 
  
@@ -40,8 +39,7 @@ while True:                            # Repeat until message == quit
                 break 
             
         if (message == "send"):
-            message = data8bit[0]
-            
+            message = packed_data[0]
         messageLength = tcpSocket.send(message) 
         print() 
  
