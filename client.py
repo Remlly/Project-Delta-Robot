@@ -13,12 +13,12 @@ import StructFuncs as struct
 
 
 hostIp = '192.168.178.30'              # Use ip address from the server 
-hostPort = 2001                        # Use pc port from the server 
+hostPort = 2000                        # Use pc port from the server 
 serverAddress = (hostIp, hostPort)     # create (tuple) 
 
 
-string = "hello world!"
-packed_data = struct.pack_string(string)
+string = np.array([0,1,2,3,4,5,6,7,8,9,10])
+packed_data = struct.pack_array(string)
 
 while True:                            # Repeat until message == quit 
  
@@ -39,18 +39,20 @@ while True:                            # Repeat until message == quit
                 break 
             
         if (message == "send"):
-            message = packed_data[0]
-        messageLength = tcpSocket.send(message) 
-        print() 
- 
-        print("Number of bytes sent: ", messageLength) 
- 
-        serverReply = tcpSocket.recv(1024).decode() 
-        print("Answer from server:", serverReply) 
-        print() 
- 
-        if message == "close" or message == "quit": 
-            break 
+            message = packed_data
+            
+        while(1):
+            messageLength = tcpSocket.send(message) 
+            print() 
+     
+            print("Number of bytes sent: ", messageLength) 
+     
+            serverReply = tcpSocket.recv(1024).decode() 
+            print("Answer from server:", serverReply) 
+            print() 
+     
+            if message == "close" or message == "quit": 
+                break 
  
     tcpSocket.close()                  # the complete tcpSocket is deleted 
     print("connection closed") 

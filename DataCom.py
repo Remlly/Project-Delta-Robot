@@ -9,13 +9,19 @@ Created on Wed Dec  1 11:50:24 2021
 import socket 
 
 import StructFuncs as struct
-
+import numpy as np
 
 pcHostName = socket.gethostname() 
 hostIp = socket.gethostbyname(pcHostName) 
-hostPort = 2001 
+hostPort = 2000 
 serverAddress = (hostIp, hostPort)      # create (tuple) 
  
+
+block_values = np.array([1,2,3,4,5,])
+packed_values = struct.pack_array(block_values)
+
+start_packaging = False
+
 print() 
 print("pc name:    ", pcHostName) 
 print("ip address: ", hostIp) 
@@ -39,12 +45,22 @@ while True:
  
     while True: 
         data = client.recv(1024)
+        unpacked_data = struct.unpack_16int(data)
         
-        print("[*] Received '", data, "' from the client") 
-        print("    Processing data") 
-        unpacked_data = struct.unpack_string(data)
-        print(f"{unpacked_data}")
-        client.send(unpacked_data.encode()) 
+        if(unpacked_data == 10):
+            print("waiting for end affector to move")
+            start_packaging = True
+        
+        if(start_packaging[0] == True & unpacked_data == 20):
+            print("starting packaging")
+            
+        
+        
+        #print("[*] Received '", data, "' from the client") 
+        #print("    Processing data") 
+        #unpacked_data = struct.unpack_array(data)
+        #packed_Data = struct.pack_array(np.asarray(unpacked_data[0]))
+        
         
         
 print("    End of server program.") 
