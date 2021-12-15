@@ -18,7 +18,6 @@ serverAddress = (hostIp, hostPort)      # create (tuple)
  
 
 block_values = np.array([1,2,3,4,5,])
-packed_values = struct.pack_array(block_values)
 
 start_packaging = False
 
@@ -46,20 +45,18 @@ while True:
     while True: 
         data = client.recv(1024)
         unpacked_data = struct.unpack_16int(data)
+        print(unpacked_data)
         
-        if(unpacked_data == 10):
-            print("waiting for end affector to move")
-            start_packaging = True
-        
-        if(start_packaging[0] == True & unpacked_data == 20):
-            print("starting packaging")
-            
+        if(unpacked_data[0] == 10):
+            packed_Data = struct.pack_array(block_values)
+            client.send(packed_Data)
+            print('Response send: block locations')
         
         
         #print("[*] Received '", data, "' from the client") 
         #print("    Processing data") 
         #unpacked_data = struct.unpack_array(data)
-        #packed_Data = struct.pack_array(np.asarray(unpacked_data[0]))
+        #
         
         
         

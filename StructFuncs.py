@@ -15,13 +15,13 @@ echo = False
 
 def pack_16int(value):
     """Packs an integer, returns packed_int as byte code"""
-    packed_int = struct.pack(">2h", value)
+    packed_int = struct.pack(">h", value)
     
     return packed_int
 
 def unpack_16int(value):
     """unpacks a 16 bits integer bytecode into a tuple"""
-    unpacked_int = struct.unpack(">2h", value)
+    unpacked_int = struct.unpack(">h", value)
     
     return unpacked_int
 
