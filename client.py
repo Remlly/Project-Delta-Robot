@@ -17,7 +17,7 @@ hostPort = 2000                        # Use pc port from the server
 serverAddress = (hostIp, hostPort)     # create (tuple) 
 
 
-string = np.array([0,1,2,3,4,5,6,7,8,9,10])
+string = np.array([10.0])
 packed_data = struct.pack_array(string)
 
 while True:                            # Repeat until message == quit 
@@ -41,18 +41,19 @@ while True:                            # Repeat until message == quit
         if (message == "send"):
             message = packed_data
             
-        while(1):
-            messageLength = tcpSocket.send(message) 
-            print() 
-     
-            print("Number of bytes sent: ", messageLength) 
-     
-            serverReply = tcpSocket.recv(1024).decode() 
-            print("Answer from server:", serverReply) 
-            print() 
-     
-            if message == "close" or message == "quit": 
-                break 
+    
+        messageLength = tcpSocket.send(message) 
+        print() 
+ 
+        print("Number of bytes sent: ", messageLength) 
+ 
+        serverReply = tcpSocket.recv(1024) 
+        serverReply = struct.unpack_array(serverReply)
+        print("Answer from server:", serverReply) 
+        print() 
+ 
+        if message == "close" or message == "quit": 
+            break 
  
     tcpSocket.close()                  # the complete tcpSocket is deleted 
     print("connection closed") 

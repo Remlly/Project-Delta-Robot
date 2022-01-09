@@ -10,6 +10,7 @@ import socket
 
 import StructFuncs as struct
 import numpy as np
+import Herkenning as hk
 
 pcHostName = socket.gethostname() 
 hostIp = socket.gethostbyname(pcHostName) 
@@ -46,6 +47,8 @@ while True:
         data = client.recv(1024)
         unpacked_data = struct.unpack_16int(data)
         print(unpacked_data)
+        
+        hk.vision()
         
         if(unpacked_data[0] == 10):
             packed_Data = struct.pack_array(block_values)
