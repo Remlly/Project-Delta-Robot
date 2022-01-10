@@ -12,7 +12,7 @@ import numpy as np
 import StructFuncs as struct
 
 
-hostIp = '192.168.178.30'              # Use ip address from the server 
+hostIp = '192.168.178.38'              # Use ip address from the server 
 hostPort = 2000                        # Use pc port from the server 
 serverAddress = (hostIp, hostPort)     # create (tuple) 
 
